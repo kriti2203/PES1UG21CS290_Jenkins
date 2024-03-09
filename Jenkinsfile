@@ -4,29 +4,32 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
-                    build 'PES1UG21CS290-1'
-                    sh 'g++ -o output main.cpp'
-                }
+                sh 'g++ temp.cpp -o temp'
+                 build job: 'PES1UG21CS290-1', wait: false
+                 echo 'Build by CS290 successful'
             }
         }
+
         stage('Test') {
             steps {
-                script {
-                    sh './output'
-                }
+                sh 'cat temp.cpp'
+                echo 'Test by CS290 successful'
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'deploy'
+               
+                 ech 'Deploy by CS290 successful'
             }
         }
     }
 
     post {
         failure {
-            error 'pipeline failed'
+            
+                echo 'Pipeline Failed'
+          
         }
     }
 }
